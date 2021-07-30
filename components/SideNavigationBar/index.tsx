@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@chakra-ui/react';
 import { FaHome } from 'react-icons/fa';
 import { GrGallery } from 'react-icons/gr';
 import { HiOutlineDocumentDuplicate } from 'react-icons/hi';
@@ -26,20 +25,16 @@ const navigationItems: INavigationItem[] = [
 ];
 
 export const SideNavigationBar = () => {
-  const [isDesktop, isTablet] = useMediaQuery([
-    '(min-width:1024px)',
-    '(min-width:768px)',
-  ]);
-
-  const renderNavigationBar = () => {
-    if (isDesktop) {
-      return <DesktopSideNavigationBar navItems={navigationItems} />;
-    } else if (isTablet) {
-      return <DesktopSideNavigationBar navItems={navigationItems} />;
-    } else {
-      return <MobileSideNavigationBar navItems={navigationItems} />;
-    }
-  };
-
-  return renderNavigationBar();
+  return (
+    <>
+      <MobileSideNavigationBar
+        display={['block', 'block', 'none']}
+        navItems={navigationItems}
+      />
+      <DesktopSideNavigationBar
+        display={['none', 'none', 'flex']}
+        navItems={navigationItems}
+      />
+    </>
+  );
 };

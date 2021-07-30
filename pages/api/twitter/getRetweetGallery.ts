@@ -2,8 +2,10 @@ import { NextApiHandler } from 'next';
 import connectDB from '../../../middlewares/connectDB';
 import verifyAuth from '../../../middlewares/verifyAuth';
 import { ApiResponse } from '../../../types/api_response';
-import tweetModel from '../../../models/tweet';
 import { getSession } from 'next-auth/client';
+import { TwitterApiTokens } from 'twitter-api-v2';
+import TwitterApi from 'twitter-api-v2';
+import { Status } from 'twitter-d';
 
 const getRetweetGalleryHandler: NextApiHandler<ApiResponse> = async (
   req,
@@ -15,24 +17,36 @@ const getRetweetGalleryHandler: NextApiHandler<ApiResponse> = async (
 
   try {
     const user = session!.user!;
+    const tokens: TwitterApiTokens = {
+      appKey: process.env.TWITTER_API_KEY || '',
+      appSecret: process.env.TWITTER_API_SECRET || '',
+      accessToken: user.oauth_token || '',
+      accessSecret: user.oauth_token_secret || '',
+    };
+    const client = new TwitterApi(tokens);
 
-    const mediaRetweets = await tweetModel
-      .find({
-        userID: user.id,
-        hasMedia: true,
-      })
-      .lean();
+    const statuses = await client.v1.get(
+      // Otherwise fetch the user's timeline
+      '/statuses/user_timeline.json',
+      {
+        user_id: user.id,
+        count: 200,
+      }
+    );
 
-    // Convert the stored retweets into string query for Twitter Lookup
+    // We need to filter the tweets in order to separate all
+    // retweets from normal tweets
+    const filteredStatuses = (statuses as Status[]).filter(
+      (tweet) => tweet.entities.media
+    );
 
     return res.status(200).json({
-      data: mediaRetweets,
+      data: filteredStatuses,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       error: {
-        message: String(error),
+        message: error,
         statusCode: 500,
       },
     });

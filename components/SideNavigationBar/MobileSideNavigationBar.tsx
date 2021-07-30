@@ -8,6 +8,7 @@ import {
   Flex,
   Spacer,
   Text,
+  useMediaQuery,
   VStack,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
@@ -17,14 +18,25 @@ import { SideNavigationHeader } from './SideNavigationHeader';
 import { signOut } from 'next-auth/client';
 import { DisplayType, INavigationItem } from './types';
 import { useStore } from '../../stores/useStore';
+import { BoxProps } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
-interface IProps {
+interface IProps extends BoxProps {
   navItems: INavigationItem[];
 }
 
-export const MobileSideNavigationBar = (props: IProps) => {
+export const MobileSideNavigationBar = ({ navItems, ...restProps }: IProps) => {
+  const [isDesktopOrTablet] = useMediaQuery(['(min-width:768px)']);
+
   const { isDrawerOpen, hideDrawer } = useStore();
   const router = useRouter();
+
+  useEffect(() => {
+    // AUTOMATICALLY HIDE THE DRAWER IN DESKTOP MODE
+    if (isDesktopOrTablet && isDrawerOpen) {
+      hideDrawer();
+    }
+  }, [isDesktopOrTablet, isDrawerOpen, hideDrawer]);
 
   const handleOnNavigationItemPressed = (navigationItem: INavigationItem) => {
     hideDrawer();
@@ -39,7 +51,7 @@ export const MobileSideNavigationBar = (props: IProps) => {
   };
 
   const renderNavigationItem = () => {
-    return props.navItems.map((navItem) => {
+    return navItems.map((navItem) => {
       return (
         <SideNavigationItem
           displayType={DisplayType.Mobile}
@@ -62,6 +74,7 @@ export const MobileSideNavigationBar = (props: IProps) => {
       onClose={() => hideDrawer()}
       size="xs"
       placement="left"
+      {...restProps}
     >
       <DrawerOverlay />
       <DrawerContent>

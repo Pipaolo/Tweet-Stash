@@ -45,6 +45,7 @@ export const SideNavigationItem = ({ displayType, ...props }: IProps) => {
 
   switch (displayType) {
     case DisplayType.Desktop:
+      return renderDesktopAndMobile();
     case DisplayType.Mobile:
       return renderDesktopAndMobile();
     default:

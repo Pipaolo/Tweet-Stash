@@ -1,4 +1,4 @@
-import { Button, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
+import { BoxProps, Button, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
 import { SideNavigationItem } from './SideNavigationItem';
 
@@ -6,11 +6,14 @@ import { SideNavigationHeader } from './SideNavigationHeader';
 import { signOut } from 'next-auth/client';
 import { DisplayType, INavigationItem } from './types';
 
-interface IProps {
+interface IProps extends BoxProps {
   navItems: INavigationItem[];
 }
 
-export const DesktopSideNavigationBar = (props: IProps) => {
+export const DesktopSideNavigationBar = ({
+  navItems,
+  ...restProps
+}: IProps) => {
   const router = useRouter();
 
   const handleOnNavigationItemPressed = (navigationItem: INavigationItem) => {
@@ -25,7 +28,7 @@ export const DesktopSideNavigationBar = (props: IProps) => {
   };
 
   const renderNavigationItem = () => {
-    return props.navItems.map((navItem) => {
+    return navItems.map((navItem) => {
       return (
         <SideNavigationItem
           displayType={DisplayType.Desktop}
@@ -50,6 +53,7 @@ export const DesktopSideNavigationBar = (props: IProps) => {
       bg="white"
       borderRadius="20px"
       p="1em"
+      {...restProps}
     >
       <SideNavigationHeader />
       <VStack mt="1em" w="full">
