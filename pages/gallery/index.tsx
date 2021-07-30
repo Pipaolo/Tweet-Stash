@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { PrivateContainer } from '../../components/PrivateContainer';
 import { SideNavigationBar } from '../../components/SideNavigationBar';
@@ -8,7 +8,6 @@ import { Appbar } from '../../components/Appbar';
 import { Tweet } from '../../models/tweet';
 import axios from '../../utils/axios';
 import { ApiResponse } from '../../types/api_response';
-import { useMemo } from 'react';
 
 interface IProps {
   error?: ApiError;
@@ -16,16 +15,16 @@ interface IProps {
 }
 
 const GalleryPage = ({ reTweets, error }: IProps) => {
-  const images =
-    useMemo(() => {
-      const width = Math.floor(Math.random() * 100) + 1;
-      const height = Math.floor(Math.random() * 50) + 1;
-      return reTweets?.map((tweet) => ({
-        src: String(tweet.mediaURL),
-        width,
-        height,
-      }));
-    }, [reTweets]) || [];
+  // const images =
+  //   useMemo(() => {
+  //     const width = Math.floor(Math.random() * 100) + 1;
+  //     const height = Math.floor(Math.random() * 50) + 1;
+  //     return reTweets?.map((tweet) => ({
+  //       src: String(tweet.mediaURL),
+  //       width,
+  //       height,
+  //     }));
+  //   }, [reTweets]) || [];
 
   return (
     <PrivateContainer>
