@@ -1,14 +1,16 @@
-import { Box, Button, Flex, Grid, Heading, Text } from '@chakra-ui/react'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useSession, signIn, signOut } from 'next-auth/client'
-
+import { Button, Flex, Grid, Heading, Text } from '@chakra-ui/react';
+import Head from 'next/head';
+import { useSession, signIn } from 'next-auth/client';
+/**
+ * The Landing Page of the Web application
+ * @return {any}
+ */
 export default function LandingPage() {
-  const [session] = useSession()
+  const [session] = useSession();
   const handleOnSignInButtonPressed = () => {
-    signIn('twitter')
-  }
-  console.log(session)
+    signIn('twitter');
+  };
+  console.log(session);
   return (
     <div>
       <Head>
@@ -48,5 +50,5 @@ export default function LandingPage() {
         </Grid>
       </main>
     </div>
-  )
+  );
 }

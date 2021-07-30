@@ -1,10 +1,10 @@
-import { GetState, SetState, StoreApi, StateCreator } from 'zustand'
-import { BaseSlice } from '../types/baseSlice'
+import { StateCreator } from 'zustand';
+import { BaseSlice } from '../types/baseSlice';
 
 export interface IAuthSlice extends BaseSlice {
-  accessToken: string | undefined | null
-  accessTokenSecret: string | undefined | null
-  setCredentials: (accessToken: string, accessTokenSecret: string) => void
+  accessToken: string | undefined | null;
+  accessTokenSecret: string | undefined | null;
+  setCredentials: (accessToken: string, accessTokenSecret: string) => void;
 }
 
 const createAuthSlice: StateCreator<IAuthSlice> = (set, get) => ({
@@ -13,5 +13,5 @@ const createAuthSlice: StateCreator<IAuthSlice> = (set, get) => ({
   isSuccess: false,
   isLoading: false,
   setCredentials: (accessToken, accessTokenSecret) => {},
-})
-export default createAuthSlice
+});
+export default createAuthSlice;

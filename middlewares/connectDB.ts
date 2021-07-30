@@ -1,2 +1,2 @@
-const connectDB = () => {}
-export default connectDB
+const connectDB = () => {};
+export default connectDB;

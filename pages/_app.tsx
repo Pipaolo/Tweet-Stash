@@ -1,7 +1,12 @@
-import type { AppProps } from 'next/app'
-import { ChakraProvider } from '@chakra-ui/react'
-import { Provider } from 'next-auth/client'
+import type { AppProps } from 'next/app';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from 'next-auth/client';
 
+/**
+ * Main Entry Point of the Website
+ *
+ * @return {any}
+ */
 function TweetStashApp({ Component, pageProps }: AppProps) {
   return (
     <Provider session={pageProps}>
@@ -9,6 +14,6 @@ function TweetStashApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>
-  )
+  );
 }
-export default TweetStashApp
+export default TweetStashApp;

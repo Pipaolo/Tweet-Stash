@@ -1,8 +1,7 @@
-import create, { GetState, SetState, StoreApi } from 'zustand'
-import createAuthSlice, { IAuthSlice } from './createAuthSlice'
-import createTwitterSlice, { ITwitterSlice } from './createTwitterSlice'
-import { mountStoreDevtool } from 'simple-zustand-devtools'
-import { devtools } from 'zustand/middleware'
+import create, { GetState, SetState, StoreApi } from 'zustand';
+import createAuthSlice, { IAuthSlice } from './createAuthSlice';
+import createTwitterSlice, { ITwitterSlice } from './createTwitterSlice';
+import { devtools } from 'zustand/middleware';
 
 interface IStore extends IAuthSlice, ITwitterSlice {}
 
@@ -19,4 +18,4 @@ export const useStore = create<IStore>(
       api as unknown as StoreApi<ITwitterSlice>
     ),
   }))
-)
+);
