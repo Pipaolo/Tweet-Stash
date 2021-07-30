@@ -9,6 +9,7 @@ declare module 'next-auth' {
     refreshToken?: string;
     oauth_token?: string;
     oauth_token_secret?: string;
+    screen_name?: string;
   }
   interface Account {
     oauth_token?: string;

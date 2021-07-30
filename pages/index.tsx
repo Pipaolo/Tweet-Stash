@@ -1,16 +1,20 @@
 import { Button, Flex, Grid, Heading, Text } from '@chakra-ui/react';
 import Head from 'next/head';
-import { useSession, signIn } from 'next-auth/client';
+import { signIn, getSession } from 'next-auth/client';
+
+import { GetServerSideProps } from 'next';
 /**
  * The Landing Page of the Web application
  * @return {any}
  */
 export default function LandingPage() {
-  const [session] = useSession();
   const handleOnSignInButtonPressed = () => {
-    signIn('twitter');
+    signIn('twitter', {
+      callbackUrl: `${window.location.origin}/home`,
+      redirect: true,
+    });
   };
-  console.log(session);
+
   return (
     <div>
       <Head>
@@ -33,7 +37,7 @@ export default function LandingPage() {
             flexDir="column"
             alignItems="center"
             justify="center"
-            bg="black"
+            bg="white"
             borderRadius="1em 0em 0em 1em"
             p="1em"
           >
@@ -52,3 +56,22 @@ export default function LandingPage() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // Check if the user is currently logged in
+  const session = await getSession({
+    req: context.req,
+  });
+  if (session) {
+    return {
+      redirect: {
+        destination: '/home',
+      },
+      props: {},
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

@@ -12,6 +12,10 @@ export default nextAuth({
         user.oauth_token_secret = account.oauth_token_secret;
         user.id = account.id;
       }
+
+      if (profile) {
+        user.screen_name = String(profile['screen_name']);
+      }
       return true;
     },
     async session(session, userOrToken) {

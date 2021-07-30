@@ -5,7 +5,9 @@ import { ApiResponse } from '../types/api_response';
 const verifyAuth = (handler: NextApiHandler) => {
   return async (req: NextApiRequest, res: NextApiResponse<ApiResponse>) => {
     // Start Checking for log in
-    const session = await getSession();
+    const session = await getSession({
+      req,
+    });
 
     if (!session) {
       // Handle redirection
