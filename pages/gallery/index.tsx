@@ -37,11 +37,11 @@ const GalleryPage = ({ retweets, error }: IProps) => {
     <PrivateContainer>
       <Flex
         bg="blue.400"
-        h={['100%', '100vh', '100vh']}
+        h={['100vh', '100vh', '100vh']}
         align="center"
         justify="center"
         p={['0px', '0px', '1em']}
-        overflow="hidden"
+        overflow={['auto', 'auto', 'hidden']}
       >
         <Appbar />
         <SideNavigationBar />
@@ -49,9 +49,10 @@ const GalleryPage = ({ retweets, error }: IProps) => {
         <Box
           display={images.length === 2 ? 'block' : 'flex'}
           w="full"
-          h={['100vh', '100vh', '100%']}
+          h="full"
+          paddingTop={['70px', '100px', '0']}
           overflowY={['initial', 'initial', 'auto']}
-          p="0 1em"
+          px="1em"
         >
           <PhotoGallery
             photos={images}

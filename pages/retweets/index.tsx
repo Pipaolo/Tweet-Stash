@@ -36,14 +36,15 @@ const RetweetsPage = ({ tweets, error }: IProps) => {
       >
         <Appbar />
         <SideNavigationBar />
-        <VStack p="2em" w="full" h="full">
+        <VStack px={'2em'} w="full" h="full">
           <VStack
             spacing="1em"
             w="full"
             overflowY={['initial', 'initial', 'auto']}
             overflowX="hidden"
             borderRadius="20px"
-            p={['0px', '0px', '0 1em']}
+            paddingTop={['70px', '100px', '0']}
+            paddingX="1em"
           >
             {renderTweets()}
             <Heading>End of Stored Retweets {tweetsLength}/100</Heading>

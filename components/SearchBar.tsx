@@ -20,7 +20,12 @@ export const SearchBar = () => {
 
   // We don't need to search in mobile
   return (
-    <Box display={['none', 'block']} bg="blue.500" w="full" borderRadius="20px">
+    <Box
+      display={['none', 'none', 'block']}
+      bg="blue.500"
+      w="full"
+      borderRadius="20px"
+    >
       <InputGroup>
         <InputLeftElement>
           {isLoading ? <Spinner /> : <FaSearch />}

@@ -50,7 +50,7 @@ const HomePage = ({ tweets, error }: IProps) => {
       >
         <Appbar />
         <SideNavigationBar />
-        <VStack p="2em" w="full" h="full">
+        <VStack px={'2em'} w="full" h="full">
           <SearchBar />
           <VStack
             spacing="1em"
@@ -58,7 +58,8 @@ const HomePage = ({ tweets, error }: IProps) => {
             overflowY={['initial', 'initial', 'auto']}
             overflowX="hidden"
             borderRadius="20px"
-            p={['0px', '0px', '0 1em']}
+            paddingTop={['50px', '80px', '0']}
+            paddingX="1em"
           >
             {renderTweets()}
             <Heading>End of Tweets</Heading>
