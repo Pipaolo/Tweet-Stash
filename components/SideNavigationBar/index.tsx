@@ -18,7 +18,7 @@ const navigationItems: INavigationItem[] = [
     icon: <HiOutlineDocumentDuplicate />,
   },
   {
-    name: 'Retweet Gallery',
+    name: 'Timeline Gallery',
     route: '/gallery',
     icon: <GrGallery />,
   },

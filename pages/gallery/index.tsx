@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { PrivateContainer } from '../../components/PrivateContainer';
 import { SideNavigationBar } from '../../components/SideNavigationBar';
@@ -24,38 +24,43 @@ const GalleryPage = ({ retweets, error }: IProps) => {
         const mediaSize = tweetMedia.sizes;
         return {
           src: tweetMedia.media_url_https,
-          height: mediaSize.medium.h || 4,
-          width: mediaSize.medium.w || 3,
+          height: mediaSize.large.h,
+          width: mediaSize.large.w,
           alt: tweet.text,
         };
       });
     }, [retweets]) || [];
 
+  console.log(images.length);
+
   return (
     <PrivateContainer>
       <Flex
         bg="blue.400"
-        h={['100%', '100%', '100vh']}
+        h={['100%', '100vh', '100vh']}
         align="center"
         justify="center"
         p={['0px', '0px', '1em']}
+        overflow="hidden"
       >
         <Appbar />
         <SideNavigationBar />
 
-        <Flex
-          p="2em"
+        <Box
+          display={images.length === 2 ? 'block' : 'flex'}
           w="full"
-          h="full"
+          h={['100vh', '100vh', '100%']}
           overflowY={['initial', 'initial', 'auto']}
+          p="0 1em"
         >
           <PhotoGallery
             photos={images}
+            direction="row"
             renderImage={(props) => (
               <GalleryImage tweet={retweets![props.index]} {...props} />
             )}
           ></PhotoGallery>
-        </Flex>
+        </Box>
       </Flex>
     </PrivateContainer>
   );
